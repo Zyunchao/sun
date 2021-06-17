@@ -1,50 +1,32 @@
 <template>
-	<view class="content">
-        <image class="logo" src="../../static/logo.png"></image>
-		<view>
-            <text class="title">{{title}}</text>
-        </view>
-	</view>
+    <view class="content">
+        <h1>{{ count }}</h1>
+
+        <u-button type="primary"
+                  size="medium"
+                  @click="countChangeHandle">
+            Count
+        </u-button>
+    </view>
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-	export default Vue.extend({
-		data() {
-			return {
-				title: 'Hello'
-			}
-		},
-		onLoad() {
+import { Component, Vue, Watch } from 'vue-property-decorator'
 
-		},
-		methods: {
+@Component
+export default class Test extends Vue {
+    count: number = 0
 
-		}
-	});
+    @Watch('count', { immediate: true })
+    onCountChange(val: string, oldVal: string) {
+        console.log(`%c count onchange === `, 'color: #67c23a;', val, oldVal)
+    }
+
+    countChangeHandle() {
+        this.count++
+    }
+}
 </script>
 
 <style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin: 200rpx auto 50rpx auto;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
-	}
 </style>
